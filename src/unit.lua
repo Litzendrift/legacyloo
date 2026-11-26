@@ -74,9 +74,14 @@ function Unit.checkHitbox(unit)
         end
 
         if (Utils.distance(unit.x, unit.y, c.x, c.y)) <= unit.hitboxSize then
-            print("is hitting city")
+            c.underSeige = true
 
-            
+            print("city health:", c.health)
+
+            c.health = c.health - unit.damage
+
+            print("new city health:", c.health)
+
         end
         ::continue::
     end

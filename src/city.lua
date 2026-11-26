@@ -26,10 +26,12 @@ function City.new(name, x, y, allegianceName)
         population = 1000,
         color = {1, 1, 1, 1},
         tier = 1, -- tiers 1 to 7
+        underSeige = false,
     }
 
     newCity.tileX, newCity.tileY = calculateTileCoordinates(x, y)
     newCity.color = Allegiances[allegianceName].color
+    newCity.health = City.calculateCityHealth(newCity)
 
     Cities[newCity.name] = newCity
 
@@ -124,6 +126,11 @@ function City.isFufillCityRequirements(c)
 end
 
 
+function City.calculateCityHealth(c)
+    return Utils.roundToInteger((c.population * 0.05) * ((c.tier * 0.01) + 1))
+end
+
+
 function City.calculateNewPopulation(c)
     local populationGrowthPercentage = c.tier * 0.01
 
@@ -171,6 +178,12 @@ function City.update()
 
         local newSize = City.calculateCitySizeAccordingToPopulation(c)
         c.size = newSize
+
+        if (not c.underSeige) then
+            local newHealth = City.calculateCityHealth(c)
+            c.health = newHealth
+        end
+        
     end
 end
 

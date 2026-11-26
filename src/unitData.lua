@@ -74,7 +74,7 @@ return {
         x = 0,
         y = 0,
         allegianceName = "UNKNOWN",
-        speed = 15,
+        speed = 30,
         health = 135,
         maxHealth = 135,
         damage = 5,
