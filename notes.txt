@@ -1,0 +1,4 @@
+the color {1, 1, 1, 1} is the default value for most things, should not be used for allegiance stuff or city colour, etc,
+if it shows up for that stuff prob something wrong or debugging
+
+cells on the map start from the coordinates (0, 0)
