@@ -92,9 +92,11 @@ return {
         move = function(self, destinationX, destinationY)
 
             if (self.tweenHandle) then
+                Timer.cancel(self.checkHitboxHandle)
                 Timer.cancel(self.tweenHandle)
             end
             if (self.tweenHandle2) then
+                Timer.cancel(self.checkHitboxHandle)
                 Timer.cancel(self.tweenHandle2)
             end
 
@@ -108,9 +110,12 @@ return {
 
             local tweenHandle = Timer.tween(totalTravelTime, self, {x = destinationX}, 'linear')
             local tweenHandle2 = Timer.tween(totalTravelTime, self, {y = destinationY}, 'linear')
+            -- performance very very bad, it is not ending when the ship has moved to its destination
+            local checkHitboxHandle = Timer.every(0.1, function() Unit.checkHitbox(self) end)
 
             self.tweenHandle = tweenHandle
             self.tweenHandle2 = tweenHandle2
+            self.checkHitboxHandle = checkHitboxHandle
 
         end,
 

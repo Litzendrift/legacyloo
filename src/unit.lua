@@ -50,6 +50,40 @@ function Unit.destroyUnit(unit)
 end
 
 
+function Unit.checkHitbox(unit)
+
+    -- loop through all units
+    for _, u in ipairs(Units) do
+        if (u.allegianceName == unit.allegianceName) then
+            goto continue
+        end
+
+        if u.alive then
+            if (Utils.distance(unit.x, unit.y, u.x, u.y)) <= unit.hitboxSize then
+                print("is hitting other unit")
+
+
+            end
+        end
+        ::continue::
+    end 
+
+    for _, c in pairs(Cities) do
+        if (c.allegianceName == unit.allegianceName) then
+            goto continue
+        end
+
+        if (Utils.distance(unit.x, unit.y, c.x, c.y)) <= unit.hitboxSize then
+            print("is hitting city")
+
+            
+        end
+        ::continue::
+    end
+
+end
+
+
 function Unit.calculateTotalTravelTime(speed, distance)
     return distance / speed
 end
