@@ -7,7 +7,6 @@ return {
         y = 0,
         width = 150,
         height = 200,
-        --color = {63 / 255, 63 / 255, 64 / 255},
         color = {33 / 255, 31 / 255, 31 / 255},
         pad = 10,
         layer = 1,
@@ -23,6 +22,19 @@ return {
         init = function(self)
             
             self:position()
+
+            local guiCloseButton = {
+                x = self.x + self.width - 15,
+                y = self.y,
+                width = 15,
+                height = 15,
+                color = {1, 0, 0, 1},
+
+                onClick = function()
+                    self.active = false
+                    Player.selectedCity = false
+                end,
+            }
 
             local spawnSettlerButton = {
                 x = self.x,
@@ -106,6 +118,7 @@ return {
                 end,
             }
 
+            self.buttons.guiCloseButton = guiCloseButton
             self.buttons.spawnSettlerButton = spawnSettlerButton
             self.buttons.spawnShipButton = spawnShipButton
             self.buttons.developCityButton = developCityButton
@@ -142,6 +155,10 @@ return {
 
             love.graphics.print("income: " .. City.calculateCityIncome(selectedCity), self.x, self.y + 91)
 
+            local guiCloseButton = self.buttons.guiCloseButton
+            ReusableUiElements.drawButton(guiCloseButton.x, guiCloseButton.y, guiCloseButton.width, guiCloseButton.height, guiCloseButton.color)
+            ReusableUiElements.drawCross(self.x + self.width - 15 + (15/2), self.y + 15/2, 10, 2, {0, 0, 0, 1})
+
             local b = self.buttons.spawnSettlerButton
             ReusableUiElements.drawButton(b.x, b.y, b.width, b.height, b.color)
             love.graphics.setColor({1, 1, 1, 1})
@@ -170,13 +187,6 @@ return {
             love.graphics.setNewFont(12)
 
             --love.graphics.print("income: " .. selectedCity.income, self.x, self.y + 85)
-
-            love.graphics.setColor({1, 0, 0, 1})
-            love.graphics.rectangle("fill", self.x + self.width - 15, self.y, 15, 15)
-
-            ReusableUiElements.drawCross(self.x + self.width - 15 + (15/2), self.y + 15/2, 10, 2, {0, 0, 0, 1})
-
-            
         end,
     },
 
@@ -204,6 +214,19 @@ return {
             
             self:position()
 
+            local guiCloseButton = {
+                x = self.x + self.width - 15,
+                y = self.y,
+                width = 15,
+                height = 15,
+                color = {1, 0, 0, 1},
+
+                onClick = function()
+                    self.active = false
+                    Player.selectedUnit = false
+                end,
+            }
+
             local buildCityButton = {
                 x = self.x,
                 y = self.y + 100,
@@ -226,6 +249,7 @@ return {
                 end,
             }
 
+            self.buttons.guiCloseButton = guiCloseButton
             self.buttons.buildCityButton = buildCityButton
 
         end,
@@ -262,6 +286,10 @@ return {
             love.graphics.rectangle("fill", self.x + 3, self.y + 68, (self.width - self.pad) * healthPercentage, 5)
             --love.graphics.print("(" .. selectedUnit.x .. ", " .. selectedUnit.y .. ")", self.x, self.y + 65)
 
+            local guiCloseButton = self.buttons.guiCloseButton
+            ReusableUiElements.drawButton(guiCloseButton.x, guiCloseButton.y, guiCloseButton.width, guiCloseButton.height, guiCloseButton.color)
+            ReusableUiElements.drawCross(self.x + self.width - 15 + (15/2), self.y + 15/2, 10, 2, {0, 0, 0, 1})
+
             local b = self.buttons.buildCityButton
             ReusableUiElements.drawButton(b.x, b.y, b.width, b.height, b.color)
             love.graphics.setColor({1, 1, 1, 1})
@@ -295,6 +323,19 @@ return {
             
             self:position()
 
+            local guiCloseButton = {
+                x = self.x + self.width - 15,
+                y = self.y,
+                width = 15,
+                height = 15,
+                color = {1, 0, 0, 1},
+
+                onClick = function()
+                    self.active = false
+                    Player.selectedUnit = false
+                end,
+            }
+
             local disbandButton = {
                 x = self.x,
                 y = self.y + 100,
@@ -312,6 +353,7 @@ return {
                 end,
             }
 
+            self.buttons.guiCloseButton = guiCloseButton
             self.buttons.disbandButton = disbandButton
 
         end,
@@ -347,6 +389,10 @@ return {
             love.graphics.setColor({0, 1, 0, 1})
             love.graphics.rectangle("fill", self.x + 3, self.y + 68, (self.width - self.pad) * healthPercentage, 5)
             --love.graphics.print("(" .. selectedUnit.x .. ", " .. selectedUnit.y .. ")", self.x, self.y + 65)
+
+            local guiCloseButton = self.buttons.guiCloseButton
+            ReusableUiElements.drawButton(guiCloseButton.x, guiCloseButton.y, guiCloseButton.width, guiCloseButton.height, guiCloseButton.color)
+            ReusableUiElements.drawCross(self.x + self.width - 15 + (15/2), self.y + 15/2, 10, 2, {0, 0, 0, 1})
 
             local b = self.buttons.disbandButton
             ReusableUiElements.drawButton(b.x, b.y, b.width, b.height, b.color)
