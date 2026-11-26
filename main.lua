@@ -241,12 +241,22 @@ function love.mousepressed(x, y, button, istouch)
             print("open city ui")
             Player.selectedCity = Player.hoverCity
             activateUiAndSetToLargestDrawPriority(UiElements.cityUi)
-            UiElements.unitUi.active = false
+            UiElements.settlerUi.active = false
+            UiElements.shipUi.active = false
 
         else if (Player.hoverUnit) then
             print("open unit ui")
             Player.selectedUnit = Player.hoverUnit
-            activateUiAndSetToLargestDrawPriority(UiElements.unitUi)
+            if (Player.selectedUnit) and (Player.selectedUnit.name == "settler") then
+                activateUiAndSetToLargestDrawPriority(UiElements.settlerUi)
+                UiElements.shipUi.active = false
+            end
+
+            if (Player.selectedUnit) and (Player.selectedUnit.name == "ship") then
+                activateUiAndSetToLargestDrawPriority(UiElements.shipUi)
+                UiElements.settlerUi.active = false
+            end
+            
             UiElements.cityUi.active = false
         end
         end

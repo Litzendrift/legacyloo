@@ -181,8 +181,8 @@ return {
     },
 
 
-    unitUi = {
-        name = "unitUi",
+    settlerUi = {
+        name = "settlerUi",
         active = false,
         x = 0,
         y = 0,
@@ -272,8 +272,94 @@ return {
     },
 
 
+    shipUi = {
+        name = "shipUi",
+        active = false,
+        x = 0,
+        y = 0,
+        width = 150,
+        height = 200,
+        color = {33 / 255, 31 / 255, 31 / 255},
+        pad = 10,
+        layer = 1,
+        buttons = {},
+
+        position = function(self)
+
+            self.x = self.pad
+            self.y = WindowHeight - self.height - self.pad
+
+        end,
+
+        init = function(self)
+            
+            self:position()
+
+            local disbandButton = {
+                x = self.x,
+                y = self.y + 100,
+                width = 50,
+                height = 20,
+                color = {74 / 255, 69 / 255, 69 / 255},
+
+                onClick = function()
+                    local u = Player.selectedUnit
+
+                    u.alive = false
+                    Player.selectedUnit = false
+
+                    return false
+                end,
+            }
+
+            self.buttons.disbandButton = disbandButton
+
+        end,
+
+        draw = function(self)
+
+            if (not self.active) then
+                return
+            end
+
+            local selectedUnit = Player.selectedUnit
+            if (not selectedUnit) then
+                return
+            end
+            
+            love.graphics.setColor(self.color)
+            love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+
+            love.graphics.setColor({1, 1, 1, 1})
+            local image = FlagImages160[selectedUnit.allegianceName]
+            local targetWidth, targetHeight = 86, 48
+            local scaleX = targetWidth / image:getWidth()
+            local scaleY = targetHeight / image:getHeight()
+            love.graphics.draw(image, self.x, self.y, 0, scaleX, scaleY)
+
+            love.graphics.setColor({1, 1, 1, 1})
+            love.graphics.print(selectedUnit.name, self.x, self.y + 55)
+
+            love.graphics.setColor({1, 0, 0, 1})
+            love.graphics.rectangle("fill", self.x + 3, self.y + 68, self.width - self.pad, 5)
+            
+            local healthPercentage = selectedUnit.health / selectedUnit.maxHealth
+            love.graphics.setColor({0, 1, 0, 1})
+            love.graphics.rectangle("fill", self.x + 3, self.y + 68, (self.width - self.pad) * healthPercentage, 5)
+            --love.graphics.print("(" .. selectedUnit.x .. ", " .. selectedUnit.y .. ")", self.x, self.y + 65)
+
+            local b = self.buttons.disbandButton
+            ReusableUiElements.drawButton(b.x, b.y, b.width, b.height, b.color)
+            love.graphics.setColor({1, 1, 1, 1})
+            love.graphics.print("disband", b.x, b.y)
+
+        end,
+
+    },
+
+
     menuUi = {
-        name = "unitUi",
+        name = "settlerUi",
         active = false,
         x = 0,
         y = 0,
