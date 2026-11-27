@@ -50,6 +50,23 @@ function Unit.destroyUnit(unit)
 end
 
 
+function Unit.shootCity(unit, city)
+
+    if (city.health > 0) and (unit.damage > 0) then
+
+        local bullet = {
+            x = unit.x,
+            y = unit.y,
+            color = unit.color
+        }
+
+        city.health = city.health - unit.damage
+
+    end
+
+end
+
+
 function Unit.checkHitbox(unit)
 
     -- loop through all units
@@ -78,7 +95,7 @@ function Unit.checkHitbox(unit)
 
             print("city health:", c.health)
 
-            c.health = c.health - unit.damage
+            Unit.shootCity(unit, c)
 
             print("new city health:", c.health)
 
