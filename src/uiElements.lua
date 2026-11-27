@@ -405,7 +405,7 @@ return {
 
 
     menuUi = {
-        name = "settlerUi",
+        name = "menuUi",
         active = false,
         x = 0,
         y = 0,
@@ -427,6 +427,41 @@ return {
 
             self:position()
 
+            local statsTabButton = {
+                x = self.x,
+                y = self.y,
+
+                onClick = function()
+                    print("switch to stats tab")
+                end
+            }
+
+            function statsTabButton:init(x, y, width, height)
+                self.x = x
+                self.y = y
+                self.width = width
+                self.height = height
+            end
+
+            local policiesTabButton = {
+                x = self.x,
+                y = self.y,
+
+                onClick = function()
+                    print("switch to policies tab")
+                end
+            }
+
+            function policiesTabButton:init(x, y, width, height)
+                self.x = x
+                self.y = y
+                self.width = width
+                self.height = height
+            end
+
+            self.buttons.statsTabButton = statsTabButton
+            self.buttons.policiesTabButton = policiesTabButton
+
         end,
 
         draw = function(self)
@@ -444,6 +479,19 @@ return {
             local scaleX = targetWidth / image:getWidth()
             local scaleY = targetHeight / image:getHeight()
             love.graphics.draw(image, self.x, self.y, 0, scaleX, scaleY)
+
+
+            local font = love.graphics.getFont()
+            love.graphics.print("STATS", self.x + targetWidth + 5, self.y + 10)
+            local stb = self.buttons.statsTabButton
+            local w, h = font:getWidth("STATS"), font:getHeight()
+            stb.init(stb, self.x+targetWidth + 5, self.y + 10, w, h)
+
+            love.graphics.print("POLICIES", self.x + targetWidth + 55, self.y + 10)
+            local ptb = self.buttons.policiesTabButton
+            local w2, h2 = font:getWidth("POLICIES"), font:getHeight()
+            ptb.init(ptb, self.x+targetWidth + 55, self.y + 10, w2, h2)
+
 
             love.graphics.setColor({1, 0, 0, 1})
             love.graphics.rectangle("fill", self.x + 3, self.y + 68, self.width - self.pad, 5)

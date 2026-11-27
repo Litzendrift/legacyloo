@@ -266,8 +266,12 @@ end
 
 function love.keypressed(key, scancode, isrepeat)
    if key == "e" then
-        print("open menu ui")
-        activateUiAndSetToLargestDrawPriority(UiElements.menuUi)
+        print("toggle menu ui")
+        if (UiElements.menuUi.active == false) then
+            activateUiAndSetToLargestDrawPriority(UiElements.menuUi) 
+        else
+            UiElements.menuUi.active = false
+        end
    end
 end
 
