@@ -416,6 +416,8 @@ return {
         layer = 1,
         buttons = {},
 
+        currentTab = "stats",
+
         position = function(self)
 
             self.x = WindowWidth / 2 - self.width / 2
@@ -433,6 +435,7 @@ return {
 
                 onClick = function()
                     print("switch to stats tab")
+                    self.currentTab = "stats"
                 end
             }
 
@@ -449,6 +452,7 @@ return {
 
                 onClick = function()
                     print("switch to policies tab")
+                    self.currentTab = "policies"
                 end
             }
 
@@ -492,9 +496,16 @@ return {
             local w2, h2 = font:getWidth("POLICIES"), font:getHeight()
             ptb.init(ptb, self.x+targetWidth + 55, self.y + 10, w2, h2)
 
+            if (self.currentTab == "stats") then
+                local totalPopulation = City.calculateTotalPopulationForAllegiance(Player.allegianceName)
+                local totalIncome = City.calculateTotalIncomeForAllegiance(Player.allegianceName)
+                love.graphics.print("population: " .. totalPopulation, self.x + 3, self.y + targetHeight + 10)
+                love.graphics.print("income: " .. totalIncome, self.x + 3, self.y + targetHeight + 10 + 15)
+            end
 
-            love.graphics.setColor({1, 0, 0, 1})
-            love.graphics.rectangle("fill", self.x + 3, self.y + 68, self.width - self.pad, 5)
+            if (self.currentTab == "policies") then
+                
+            end
 
         end,
     },

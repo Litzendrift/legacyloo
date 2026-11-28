@@ -32,6 +32,7 @@ function City.new(name, x, y, allegianceName)
     newCity.tileX, newCity.tileY = calculateTileCoordinates(x, y)
     newCity.color = Allegiances[allegianceName].color
     newCity.health = City.calculateCityHealth(newCity)
+    newCity.income = City.calculateCityIncome(newCity)
 
     Cities[newCity.name] = newCity
 
@@ -126,6 +127,38 @@ function City.isFufillCityRequirements(c)
 end
 
 
+function City.calculateTotalPopulationForAllegiance(allegianceName)
+    local totalPop = 0
+
+    for _, c in pairs(Cities) do
+        if c.allegianceName ~= allegianceName then
+            goto continue
+        end
+
+        totalPop = totalPop + c.population
+        ::continue::
+    end
+
+    return totalPop
+end
+
+
+function City.calculateTotalIncomeForAllegiance(allegianceName)
+    local totalIncome = 0
+
+    for _, c in pairs(Cities) do
+        if c.allegianceName ~= allegianceName then
+            goto continue
+        end
+
+        totalIncome = totalIncome + c.income
+        ::continue::
+    end
+
+    return totalIncome
+end
+
+
 function City.calculateCityHealth(c)
     return Utils.roundToInteger((c.population * 0.05) * ((c.tier * 0.01) + 1))
 end
@@ -178,6 +211,9 @@ function City.update()
 
         local newSize = City.calculateCitySizeAccordingToPopulation(c)
         c.size = newSize
+
+        local newIncome = City.calculateCityIncome(c)
+        c.income = newIncome
 
         if (not c.underSeige) then
             local newHealth = City.calculateCityHealth(c)
