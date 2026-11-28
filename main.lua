@@ -20,6 +20,7 @@ function love.load()
     Timer = require("libraries.timer")
     Draw = require("src.draw")
 
+    Projectile = require("src.projectile")
     Unit = require("src.unit")
 
     UiElements = require("src.uiElements")

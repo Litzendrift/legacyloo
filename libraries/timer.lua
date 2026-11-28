@@ -61,7 +61,16 @@ function Timer:update(dt)
 	for handle in pairs(to_update) do
 		if self.functions[handle] then
 			updateTimerHandle(handle, dt)
+
+			-- when  handle has completed
 			if handle.count == 0 then
+				print(handle.complete)
+				
+				if (handle.complete) then
+					print("yes")
+					handle.complete()
+				end
+				
 				self.functions[handle] = nil
 			end
 		end
@@ -99,6 +108,11 @@ function Timer:script(f)
 		self:after(t, co)
 		coroutine.yield()
 	end)
+end
+
+function Timer:setComplete(handle, func)
+	print("i got called")
+	handle.complete = func
 end
 
 Timer.tween = setmetatable({

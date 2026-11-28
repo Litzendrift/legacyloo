@@ -54,13 +54,10 @@ function Unit.shootCity(unit, city)
 
     if (city.health > 0) and (unit.damage > 0) then
 
-        local bullet = {
-            x = unit.x,
-            y = unit.y,
-            color = unit.color
-        }
-
-        city.health = city.health - unit.damage
+        local bullet = Projectile.spawnProjectile("bullet", unit.x, unit.y, unit.allegianceName, unit.color)
+        if (bullet) then
+            bullet:fireAtCity(unit.x, unit.y, city)
+        end
 
     end
 

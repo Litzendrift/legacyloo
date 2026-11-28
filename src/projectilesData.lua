@@ -8,10 +8,19 @@ return {
 
         speed = 50,
 
+        damage = 0,
+
         rotation = 0,
 
         fireAtCity = function(self, startX, startY, city)
-            self:move(startX, startY)
+            self.x = startX
+            self.y = startY
+
+            self:move(city.x, city.y)
+            Timer.setComplete(self.moveHandleX, function() 
+                print("projectile has reached destinationX, aka city")
+                city.health = city.health - self.damage
+            end)
         end,
 
         ---comment
